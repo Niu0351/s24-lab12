@@ -3,6 +3,9 @@ package AndrewWebServices;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +20,8 @@ public class AndrewWebServicesTest {
         // You need to use some mock objects here
         //database = new Database(); // We probably don't want to access our real database...
         database = new InMemoryDatabase();
-        recommender = new RecSys();
+        //recommender = new RecSys();
+        recommender = mock(RecSys.class);
         promoService = new PromoService();
 
         andrewWebService = new AndrewWebServices(database, recommender, promoService);
@@ -32,6 +36,7 @@ public class AndrewWebServicesTest {
     @Test
     public void testGetRecommendation() {
         // This is taking way too long to test
+        when(recommender.getRecommendation("Scotty")).thenReturn("Animal House");
         assertEquals("Animal House", andrewWebService.getRecommendation("Scotty"));
     }
 
